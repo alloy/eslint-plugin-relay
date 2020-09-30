@@ -442,7 +442,9 @@ module.exports = {
       /**
        * Find useQuery() calls without type arguments.
        */
-      'CallExpression[callee.name=useQuery]:not([typeArguments])'(node) {
+      'CallExpression[callee.name=useQuery]:not([typeArguments]):not([typeParameters])'(
+        node
+      ) {
         const firstArg = node.arguments[0];
         if (firstArg == null) {
           return;
@@ -465,7 +467,7 @@ module.exports = {
       /**
        * Find useLazyLoadQuery() calls without type arguments.
        */
-      'CallExpression[callee.name=useLazyLoadQuery]:not([typeArguments])'(
+      'CallExpression[callee.name=useLazyLoadQuery]:not([typeArguments]):not([typeParameters])'(
         node
       ) {
         const firstArg = node.arguments[0];
@@ -567,7 +569,7 @@ module.exports = {
       /**
        * Find usePaginationFragment() calls without type arguments.
        */
-      'CallExpression[callee.name=usePaginationFragment]:not([typeArguments])'(
+      'CallExpression[callee.name=usePaginationFragment]:not([typeArguments]):not([typeParameters])'(
         node
       ) {
         reportAndFixRefetchableType(
@@ -580,7 +582,7 @@ module.exports = {
       /**
        * Find useBlockingPaginationFragment() calls without type arguments.
        */
-      'CallExpression[callee.name=useBlockingPaginationFragment]:not([typeArguments])'(
+      'CallExpression[callee.name=useBlockingPaginationFragment]:not([typeArguments]):not([typeParameters])'(
         node
       ) {
         reportAndFixRefetchableType(
@@ -593,7 +595,7 @@ module.exports = {
       /**
        * Find useLegacyPaginationFragment() calls without type arguments.
        */
-      'CallExpression[callee.name=useLegacyPaginationFragment]:not([typeArguments])'(
+      'CallExpression[callee.name=useLegacyPaginationFragment]:not([typeArguments]):not([typeParameters])'(
         node
       ) {
         reportAndFixRefetchableType(
@@ -606,7 +608,7 @@ module.exports = {
       /**
        * Find useRefetchableFragment() calls without type arguments.
        */
-      'CallExpression[callee.name=useRefetchableFragment]:not([typeArguments])'(
+      'CallExpression[callee.name=useRefetchableFragment]:not([typeArguments]):not([typeParameters])'(
         node
       ) {
         reportAndFixRefetchableType(
