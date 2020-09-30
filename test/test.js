@@ -10,7 +10,6 @@
 const rules = require('..').rules;
 const RuleTester = require('eslint').RuleTester;
 
-const HAS_ESLINT_BEEN_UPGRADED_YET = false;
 const DEFAULT_OPTIONS = [
   {
     fix: true,
@@ -1380,22 +1379,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1420,22 +1403,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
         });
       `,
       options: [{haste: true}],
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type {MyComponent_user} from 'MyComponent_user.graphql'
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1461,23 +1428,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1504,25 +1454,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type aaa from 'aaa'
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-        import type zzz from 'zzz'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1549,25 +1480,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type {aaa} from 'aaa'
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-        import type zzz from 'zzz'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1594,25 +1506,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import {aaa} from 'aaa'
-        import zzz from 'zzz'
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1639,25 +1532,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        const aaa = require('aaa')
-        const zzz = require('zzz')
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1688,29 +1562,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        const aaa = require('aaa')
-
-        import zzz from 'zzz'
-
-        import type ccc from 'ccc'
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-        import type {xxx} from 'xxx'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1737,25 +1588,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import {aaa} from 'aaa'
-        import zzz from 'zzz'
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-
-        type Props = {user: MyComponent_user};
-
-        class MyComponent extends React.Component<Props> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1781,21 +1613,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type {MyComponent_user as User} from 'aaa'
-
-        class MyComponent extends React.Component<{ user: User }> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
@@ -1827,20 +1644,6 @@ import type {FooSubscription} from './__generated__/FooSubscription.graphql'
           user: graphql\`fragment MyComponent_user on User {id}\`,
         });
       `,
-      output: HAS_ESLINT_BEEN_UPGRADED_YET
-        ? `
-        import type {MyComponent_user} from './__generated__/MyComponent_user.graphql'
-        class MyComponent extends React.Component<{user: MyComponent_user}> {
-          render() {
-            return <div />;
-          }
-        }
-
-        createFragmentContainer(MyComponent, {
-          user: graphql\`fragment MyComponent_user on User {id}\`,
-        });
-      `
-        : null,
       errors: [
         {
           message:
