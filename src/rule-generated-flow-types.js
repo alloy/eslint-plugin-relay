@@ -7,6 +7,10 @@
 
 'use strict';
 
+const estraverse = require('estraverse');
+// const typescriptVisitorKeys = require('@typescript-eslint/visitor-keys').visitorKeys;
+const BABEL_VISITOR_KEYS = require('@babel/core').types.VISITOR_KEYS;
+
 const utils = require('./utils');
 const shouldLint = utils.shouldLint;
 const getGraphQLAST = utils.getGraphQLAST;
@@ -325,7 +329,9 @@ module.exports = {
       if (arg.type === 'Identifier') {
         const name = arg.name;
         let scope = context.getScope();
-        while (scope && scope.type != 'global') {
+        // TODO: For Flow, should this be?
+        // while (scope && scope.type != 'global') {
+        while (scope) {
           for (const variable of scope.variables) {
             if (variable.name === name) {
               const definition = variable.defs.find(
@@ -780,7 +786,7 @@ module.exports = {
             return;
           }
           const Component = componentMap[componentName].Component;
-          const propType = componentMap[componentName].propType;
+          let propType = componentMap[componentName].propType;
 
           // resolve local type alias
           const importedPropType = imports.reduce((acc, node) => {
@@ -805,6 +811,32 @@ module.exports = {
           );
 
           if (propType) {
+            if (propType.type === 'TSTypeLiteral') {
+              // TODO:
+              // estraverse.replace(propType, {});
+              propType = {
+                type: 'ObjectTypeAnnotation',
+                properties: [],
+                range: propType.range
+              };
+            }
+            propType = estraverse.replace(propType, {
+              keys: BABEL_VISITOR_KEYS,
+              enter: node => {
+                // console.log(node);
+                switch (node.type) {
+                  case 'TSTypeReference': {
+                    return {
+                      type: 'GenericTypeAnnotation',
+                      range: node.range,
+                      id: node.typeName
+                    };
+                  }
+                }
+              }
+            });
+            console.log(propType);
+
             // There exists a prop typeAnnotation. Let's look at how it's
             // structured
             switch (propType.type) {
